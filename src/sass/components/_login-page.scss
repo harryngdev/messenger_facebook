@@ -1,0 +1,394 @@
+.login-wrapper {
+  background-color: #fff;
+
+  .ant-layout {
+    &-header {
+      padding: 0 30px;
+      height: 100px;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      z-index: 2;
+      background-color: #fff;
+      line-height: inherit;
+
+      .header-nav {
+        .ant-col {
+          a {
+            color: rgba(0, 0, 0, 1);
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 50px;
+            margin: 0 15px;
+            transition: color 150ms linear;
+
+            &:hover {
+              position: relative;
+              color: #333;
+
+              &:after {
+                content: "";
+                position: absolute;
+                left: 0;
+                bottom: -6px;
+                background-color: #0a7cff;
+                border-radius: 1.5px;
+                height: 3px;
+                width: 100%;
+              }
+            }
+          }
+
+          &:first-child > a {
+            margin-left: 0;
+          }
+
+          &:last-child > a {
+            margin-right: 0;
+          }
+        }
+
+        @include responsive(1023px) {
+          display: none;
+        }
+      }
+    }
+
+    &-content {
+      background-color: #fff;
+      padding: 40px 30px 100px 30px;
+      min-height: calc(100vh - 100px - 64.22px);
+
+      .login-content-wrapper {
+        padding-top: 55px;
+        margin: 0 auto;
+        max-width: 1195px;
+      }
+
+      .login-content-left {
+        width: 440px;
+
+        @include responsive(1199px) {
+          margin: 0 auto;
+        }
+
+        @include responsive(500px) {
+          width: calc(100vw - 60px);
+        }
+
+        .login-form-wrapper {
+          padding-top: 20px;
+          padding-bottom: 10px;
+
+          .ant-typography {
+            &.title {
+              padding-top: 15px;
+              padding-bottom: 10px;
+              background-image: linear-gradient(83.84deg, #0088ff -6.87%, #a033ff 26.54%, #ff5c87 58.58%);
+              text-align: left;
+              font-size: 90px;
+              letter-spacing: -4px;
+              line-height: 92px;
+              -webkit-background-clip: text;
+              color: transparent;
+              font-weight: 400;
+              word-break: break-word;
+              margin-bottom: 10px;
+
+              @include responsive(1199px) {
+                text-align: center;
+                font-size: 60px;
+                letter-spacing: -2px;
+                line-height: 59px;
+              }
+            }
+
+            &.desc {
+              margin-bottom: 38px;
+              color: #595959;
+              font-size: 20px;
+              font-weight: 400;
+              word-break: keep-all;
+              display: inline-block;
+
+              @include responsive(1199px) {
+                text-align: center;
+              }
+            }
+          }
+
+          .login-form {
+            margin-top: 24px;
+
+            .ant-form-item {
+              margin: 0;
+            }
+
+            .ant-input {
+              font-family: "Roboto", sans-serif;
+              background: rgba(0, 0, 0, 0.04);
+              border: none;
+              border-radius: 10px;
+              box-sizing: border-box;
+              color: rgb(0, 0, 0);
+              display: block;
+              font-size: 19px;
+              height: 36px;
+              margin-top: 12px;
+              padding: 8px 16px;
+              width: 320px;
+
+              @include responsive(1199px) {
+                width: 100%;
+              }
+
+              &:focus {
+                border: 1px solid #0084ff;
+                border-radius: 10px;
+                outline: none;
+              }
+            }
+
+            .msgError {
+              color: #f03d25;
+              font-size: 12px;
+              font-weight: 500;
+              display: inline-block;
+              margin-top: 1px;
+              margin-left: 16px;
+            }
+
+            .ant-btn {
+              &.login-form-button {
+                font-family: "Roboto", sans-serif;
+                background-color: #0a7cff;
+                background-image: none;
+                border: 1px solid #0a7cff;
+                border-radius: 24px;
+                color: #fff;
+                display: inline-block;
+                font-size: 19px;
+                font-weight: 600;
+                height: 44px;
+                margin-bottom: 12px;
+                margin-top: 20px;
+                padding: 2px 20px 0;
+                width: 140.17px;
+
+                @include responsive(1199px) {
+                  display: block;
+                  margin: 20px auto 12px auto;
+                }
+              }
+
+              &.btn-link {
+                display: inline-block;
+                margin-left: 20px;
+                padding: 0;
+                font-size: 15px;
+                line-height: 15px;
+                font-family: "Roboto", sans-serif;
+
+                p {
+                  color: #595959;
+                }
+
+                span {
+                  color: #0a7cff;
+                  text-decoration: underline;
+                }
+
+                @include responsive(1199px) {
+                  display: block;
+                  margin: 20px auto 12px auto;
+                }
+              }
+            }
+
+            .ant-upload-select-picture-card {
+              margin: 0;
+              margin-top: 12px;
+              border-radius: 10px;
+              background-color: rgba(0, 0, 0, 0.04);
+              display: block;
+              width: 320px;
+
+              @include responsive(1199px) {
+                width: 100%;
+                margin: 12px auto 0 auto;
+              }
+
+              .upload-btn-title {
+                color: rgba(0, 0, 0, 0.247);
+                font-family: "Roboto", sans-serif;
+                font-size: 19px;
+              }
+            }
+
+            .ant-upload-list-picture-card-container {
+              margin: 0;
+              margin-top: 12px;
+              display: block;
+              width: 320px;
+
+              @include responsive(1199px) {
+                width: 100%;
+                margin: 12px auto 0 auto;
+              }
+
+              .ant-upload-list-item {
+                border-radius: 10px;
+                border-color: #0a7cff;
+              }
+            }
+
+            .login-social {
+              margin-top: 20px;
+
+              .login-facebook,
+              .login-google {
+                width: calc(50% - 5px) !important;
+                display: inline-block !important;
+                font-size: 15px !important;
+                margin: 0 !important;
+                border-radius: 7px !important;
+
+                @include responsive(500px) {
+                  width: 100% !important;
+                }
+              }
+
+              .login-facebook {
+                margin-right: 5px !important;
+
+                @include responsive(500px) {
+                  margin-right: 0 !important;
+                  height: 45px !important;
+                  font-size: 15.5px !important;
+                }
+              }
+
+              .login-google {
+                margin-left: 5px !important;
+
+                @include responsive(500px) {
+                  margin-left: 0 !important;
+                  margin-top: 10px !important;
+                  height: 45px !important;
+                  font-size: 15.5px !important;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .login-content-right {
+        transform: translate(30px, -20px);
+
+        @include responsive(1199px) {
+          transform: translate(0);
+          width: 440px;
+          margin: 0 auto;
+        }
+
+        @include responsive(500px) {
+          width: calc(100vw - 60px);
+        }
+
+        img {
+          margin-top: 50px;
+
+          @include responsive(1199px) {
+            margin-top: 100px;
+          }
+        }
+      }
+    }
+
+    &-footer {
+      padding: 0;
+      background-color: #fff;
+
+      .ant-row {
+        max-width: 1500px;
+        margin: 0 auto;
+        padding: 20px 30px;
+
+        .ant-col {
+          font-weight: 400;
+          color: #000;
+          font-size: 15px;
+          text-align: center;
+
+          &:first-child {
+            font-weight: 600;
+          }
+
+          &:nth-child(2) {
+            padding-right: 25px;
+            padding-left: 6px;
+          }
+
+          &:nth-child(3) {
+            padding-left: 50px;
+            padding-right: 25px;
+
+            a {
+              color: #000;
+            }
+          }
+
+          &:nth-child(4) {
+            padding-left: 25px;
+            padding-right: 50px;
+
+            a {
+              color: #000;
+            }
+          }
+
+          &:nth-child(5) {
+            padding: 0 25px;
+
+            .ant-dropdown-link {
+              color: #828282;
+              padding-bottom: 4px;
+              transition: color 150ms linear;
+
+              &:hover,
+              &:focus {
+                color: #000;
+                border-bottom: 2px solid #000;
+              }
+            }
+          }
+
+          &:nth-child(6) {
+            padding-left: 25px;
+
+            img {
+              width: 150px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.language {
+  background-color: #fff;
+  width: 163.33px;
+  max-height: 80px;
+  overflow-x: auto;
+
+  a {
+    color: #828282;
+
+    &:hover {
+      color: #000;
+    }
+  }
+}

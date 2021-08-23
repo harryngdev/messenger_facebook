@@ -1,0 +1,53 @@
+:root {
+  --color-primary: #4099ff;
+
+  --color-text-primary: #24292f;
+  --color-text-secondary: #57606a;
+
+  --color-border-primary: #d0d7de;
+
+  --color-sidebar-bg: #fff;
+  --color-sidebar-title: #050505;
+  --color-sidebar-btn-bg: #f5f5f5;
+  --color-sidebar-btn-hover: #cccccc63;
+  --color-sidebar-roomlist-hover: #f3f4f6;
+
+  --color-dropdown-nav-bg: #fff;
+
+  --color-chat-window-bg: #fff;
+  --color-chat-window-header-bg: #fff;
+
+  --color-message-bg: #e4e6eb;
+  --color-message-text: #050505;
+
+  --color-message-input-bg: rgba(134, 142, 153, 0.1);
+  --color-message-input-border: transparent;
+
+  --color-ant-select-dropdown-bg: #fff;
+}
+
+[data-theme="dark"] {
+  --color-text-primary: #c9d1d9;
+  --color-text-secondary: #8b949e;
+
+  --color-border-primary: #30363d;
+
+  --color-sidebar-bg: #0d1117;
+  --color-sidebar-title: #f0f6fc;
+  --color-sidebar-btn-bg: #21262d;
+  --color-sidebar-btn-hover: #30363d;
+  --color-sidebar-roomlist-hover: #30363d;
+
+  --color-dropdown-nav-bg: #161b22;
+
+  --color-chat-window-bg: #010409;
+  --color-chat-window-header-bg: #0d1117;
+
+  --color-message-bg: #303030;
+  --color-message-text: #fff;
+
+  --color-message-input-bg: #303030;
+  --color-message-input-border: #30363d;
+
+  --color-ant-select-dropdown-bg: #303030;
+}

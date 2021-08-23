@@ -1,0 +1,124 @@
+.ant-modal-content {
+  background-color: var(--color-chat-window-bg);
+
+  .ant-modal-close {
+    background-color: var(--color-sidebar-bg);
+    color: var(--color-text-primary);
+  }
+
+  .ant-modal-header {
+    background-color: var(--color-sidebar-bg);
+    border-color: var(--color-border-primary);
+
+    .ant-modal-title {
+      color: var(--color-text-primary);
+      font-weight: 600;
+    }
+  }
+
+  .ant-modal-body {
+    .ant-form-item {
+      margin-bottom: 0;
+      margin-top: 20px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      .ant-form-item-label > label {
+        color: var(--color-text-primary);
+        font-weight: 500;
+      }
+    }
+
+    .msgError {
+      color: #f03d25;
+      font-size: 11px;
+      font-weight: 500;
+      display: inline-block;
+      margin-left: 5px;
+    }
+
+    .ant-form-item-control-input-content > input,
+    .ant-form-item-control-input-content > textarea {
+      background-color: var(--color-message-input-bg);
+      border-color: var(--color-message-input-border);
+      color: var(--color-text-primary);
+      border-radius: 7px;
+      overflow: hidden;
+      font-size: 16px;
+
+      &::-webkit-input-placeholder {
+        color: var(--color-text-secondary);
+      }
+
+      &::-moz-input-placeholder {
+        color: var(--color-text-secondary);
+      }
+    }
+
+    .ant-select-selector {
+      background-color: var(--color-message-input-bg);
+      border-color: var(--color-message-input-border);
+      color: var(--color-text-primary);
+      border-radius: 5px;
+
+      .ant-select-selection-item {
+        background-color: var(--color-chat-window-bg);
+        border-color: var(--color-border-primary);
+
+        .anticon-close > svg {
+          fill: var(--color-text-secondary);
+        }
+      }
+    }
+
+    .ant-upload-select-picture-card {
+      margin: 0;
+      border-radius: 7px;
+      background-color: var(--color-message-input-bg);
+      border-color: var(--color-message-input-border);
+      display: block;
+      width: 100%;
+
+      .anticon-plus > svg {
+        fill: var(--color-text-primary);
+      }
+
+      .upload-btn-title {
+        color: var(--color-text-primary);
+        font-family: "Roboto", sans-serif;
+        font-size: 16px;
+      }
+    }
+
+    .ant-upload-list-picture-card-container {
+      margin: 0;
+      display: block;
+      width: 100%;
+      background-color: var(--color-message-input-bg);
+
+      .ant-upload-list-item {
+        border-radius: 10px;
+        border-color: #0a7cff;
+      }
+    }
+  }
+
+  .ant-modal-footer {
+    background-color: var(--color-sidebar-bg);
+    border-color: var(--color-border-primary);
+  }
+}
+
+.ant-select-dropdown {
+  background-color: var(--color-ant-select-dropdown-bg);
+
+  .ant-select-item {
+    background-color: transparent;
+
+    .ant-select-item-option-content {
+      color: var(--color-text-primary);
+    }
+  }
+}

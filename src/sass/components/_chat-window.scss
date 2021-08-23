@@ -1,0 +1,302 @@
+.chat-window {
+  width: calc(100% - 361px);
+  height: 100%;
+  background-color: var(--color-chat-window-bg);
+
+  @include responsive(1023px) {
+    width: calc(100% - 301px);
+  }
+
+  @include responsive(767px) {
+    width: calc(100% - 201px);
+  }
+
+  @include responsive(600px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+
+    &.show {
+      z-index: 500;
+      width: 100% !important;
+      overflow: visible;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  &-header {
+    padding: 12px 16px;
+    background-color: var(--color-chat-window-header-bg);
+    border-bottom: 1px solid var(--color-border-primary);
+
+    @include flex(center, space-between);
+  }
+
+  .header__back {
+    display: none;
+
+    @include responsive(600px) {
+      display: block;
+    }
+
+    .header__back-btn {
+      cursor: pointer;
+
+      svg {
+        fill: #4099ff;
+        font-size: 20px;
+      }
+    }
+  }
+
+  .header__info {
+    padding: 6px;
+    flex: 1;
+    @include flex(center);
+
+    &-avt {
+      padding: 6px;
+    }
+
+    &-description {
+      padding: 6px;
+      @include flex();
+      flex-direction: column;
+
+      &-title {
+        margin: 0;
+        color: var(--color-text-primary);
+        font-size: 17px;
+        font-weight: 600;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        word-break: break-all;
+      }
+
+      &-details {
+        color: var(--color-text-secondary);
+        font-size: 13px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+        word-break: break-all;
+      }
+    }
+  }
+
+  .header__control {
+    padding: 6px;
+    @include flex(center);
+
+    .ant-avatar {
+      border: 0;
+    }
+
+    &-btn-add-user {
+      margin-right: 6px;
+
+      svg {
+        width: 25px;
+        height: 25px;
+      }
+    }
+  }
+
+  &-content {
+    height: calc(100% - 89px);
+    @include flex(flex-start, flex-end);
+    flex-direction: column;
+  }
+
+  .message-wrapper {
+    width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 5px;
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #bcc0c4;
+      border-radius: 4px;
+    }
+
+    .message-item {
+      padding-left: 17px;
+
+      &-header {
+        margin-top: 10px;
+        margin-bottom: 1px;
+        padding-left: 56px;
+        @include flex(center);
+      }
+
+      &-content {
+        @include flex(flex-end);
+      }
+
+      .name {
+        color: var(--color-text-secondary);
+        font-size: 11px;
+        display: inline-block;
+        line-height: 15px;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 1;
+      }
+
+      .time {
+        color: var(--color-text-primary);
+        font-size: 11px;
+        font-weight: 500;
+        line-height: 15px;
+        display: inline-block;
+        margin-left: 5px;
+      }
+
+      .avt {
+        padding: 7px 8px 0px;
+      }
+
+      .message {
+        max-width: calc(100% - 44px - 100px);
+        background-color: var(--color-message-bg);
+        padding: 10px 15px 10px;
+        border-radius: 18px;
+        border-bottom-left-radius: 0;
+        color: var(--color-message-text);
+        font-size: 15px;
+        letter-spacing: 0.4px;
+        line-height: 17px;
+
+        @include responsive(767px) {
+          max-width: calc(100% - 44px - 50px);
+        }
+      }
+
+      &.me {
+        padding-right: 15px;
+        padding-left: 0;
+
+        .message-item-header {
+          justify-content: flex-end;
+          padding-right: 56px;
+          padding-left: 0;
+        }
+
+        .message-item-content {
+          flex-direction: row-reverse;
+
+          .message {
+            background-color: #4099ff;
+            color: #fff;
+            border-bottom-left-radius: 18px;
+            border-bottom-right-radius: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .message-input {
+    width: 100%;
+    flex-basis: 54px;
+
+    &-inner {
+      height: 100%;
+      width: 100%;
+      padding: 15px 10px 30px 23px;
+      @include flex(center, space-between);
+
+      .input-item {
+        padding: 4px 10px;
+        background-color: var(--color-message-input-bg);
+        border: 1px solid var(--color-message-input-border);
+        border-radius: 20px;
+        flex: 1;
+        margin: 0;
+
+        input {
+          background-color: transparent;
+          padding: 0;
+          color: var(--color-text-primary);
+          font-size: 16px;
+          font-weight: 400;
+          font-family: "Roboto", sans-serif;
+
+          &::-webkit-input-placeholder {
+            color: var(--color-text-secondary);
+          }
+
+          &::-moz-input-placeholder {
+            color: var(--color-text-secondary);
+          }
+        }
+      }
+
+      .btn-item {
+        padding: 8px;
+        display: block;
+        margin: 5px 4px;
+        @include flex(center, center);
+        width: 36px;
+        height: 36px;
+        overflow: hidden;
+        border-radius: 100%;
+        transition: background-color 150ms linear;
+
+        &:hover {
+          background-color: rgba(134, 142, 153, 0.1);
+        }
+      }
+    }
+  }
+
+  &-empty {
+    height: 100%;
+    overflow-y: auto;
+    position: relative;
+    padding: 5px;
+    @include flex();
+    flex-direction: column;
+
+    .ant-alert {
+      width: 100%;
+    }
+
+    &-img-wrapper {
+      flex: 1;
+      width: 100%;
+      @include flex(center, center);
+
+      img {
+        width: 500px;
+        opacity: 0.6;
+        pointer-events: none;
+
+        @include responsive(1439px) {
+          width: 400px;
+        }
+
+        @include responsive(1023px) {
+          width: 300px;
+        }
+      }
+    }
+  }
+}
