@@ -1,6 +1,5 @@
 import React from "react";
-
-import { Avatar, Typography } from "antd";
+import { Avatar, Typography, Image } from "antd";
 import { formatRelative } from "date-fns/esm";
 import { AuthContext } from "../../context/AuthProvider";
 
@@ -17,7 +16,7 @@ function formatDate(seconds) {
   return formattedDate;
 }
 
-const Message = ({ uid, text, displayName, createdAt, photoURL }) => {
+const Message = ({ uid, text, displayName, createdAt, photoURL, type }) => {
   const { user } = React.useContext(AuthContext);
 
   return (
@@ -28,13 +27,24 @@ const Message = ({ uid, text, displayName, createdAt, photoURL }) => {
           {formatDate(createdAt?.seconds)}
         </Typography.Text>
       </div>
+
       <div className="message-item-content">
         <div className="avt">
           <Avatar src={photoURL} size={28}>
             {photoURL ? "" : displayName?.charAt(0)?.toUpperCase()}
           </Avatar>
         </div>
-        <Typography.Text className="message">{text}</Typography.Text>
+        {type === "text" ? (
+          <Typography.Text className="message">{text}</Typography.Text>
+        ) : type === "sticker" ? (
+          <div className="message-sticker">
+            <img src={text} alt={text} />
+          </div>
+        ) : (
+          <div className="message-image">
+            <Image width={200} src={text} />
+          </div>
+        )}
       </div>
     </div>
   );

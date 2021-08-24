@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import { Layout, Progress } from "antd";
-
 import LoginHeader from "./../components/Login/LoginHeader";
 import LoginContent from "./../components/Login/LoginContent";
 import LoginFooter from "./../components/Login/LoginFooter";
 import Helmet from "./../components/Helmet/Helmet";
 
-const LoginPage = (props) => {
+const LoginPage = () => {
   const [progressPercent, setProgressPercent] = useState(0);
   const [isProgressVisible, setIsProgressVisible] = useState(false);
 
@@ -35,7 +34,5 @@ const LoginPage = (props) => {
     </Helmet>
   );
 };
-
-LoginPage.propTypes = {};
 
 export default LoginPage;

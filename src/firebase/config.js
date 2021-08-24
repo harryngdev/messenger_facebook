@@ -1,5 +1,4 @@
 import firebase from "firebase/app";
-
 import "firebase/analytics";
 import "firebase/auth"; // Dùng để xác thực
 import "firebase/firestore"; // real-time-database

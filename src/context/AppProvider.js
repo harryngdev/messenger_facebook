@@ -47,12 +47,22 @@ export default function AppProvider({ children }) {
 
   const members = useFireStore("users", usersCondition);
 
+  const stickerCondition = React.useMemo(() => {
+    return {
+      fieldName: "name",
+      operator: "==",
+      compareValue: "cat",
+    };
+  }, []);
+
+  const stickerCollection = useFireStore("sticker", stickerCondition);
+
   const clearState = () => {
     setSelectedRoomId("");
     setIsAddRoomVisible(false);
     setIsInviteMemberVisible(false);
   };
-  // console.log({ rooms });
+
   return (
     /**
      * Mọi App ở tron AppProvider đều có thể truy suất được value
@@ -61,6 +71,7 @@ export default function AppProvider({ children }) {
       value={{
         rooms,
         members,
+        stickerCollection,
         isAddRoomVisible,
         setIsAddRoomVisible,
         selectedRoomId,

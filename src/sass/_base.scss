@@ -34,3 +34,21 @@ body {
     color: var(--color-text-primary);
   }
 }
+
+.active-pointer {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.ant-image-preview-root {
+  .ant-image-preview-content {
+    .ant-image-preview-img-wrapper {
+      padding: 0 30px;
+      @include flex(center, center);
+
+      &:before {
+        display: none;
+      }
+    }
+  }
+}

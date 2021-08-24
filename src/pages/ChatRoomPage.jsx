@@ -1,7 +1,5 @@
 import React, { useRef } from "react";
-// import PropTypes from "prop-types";
 import { Row, Progress } from "antd";
-
 import Sidebar from "./../components/Sidebar/Sidebar";
 import ChatWindow from "./../components/ChatWindow/ChatWindow";
 import Helmet from "./../components/Helmet/Helmet";
@@ -13,7 +11,7 @@ const WrapperStyled = styled(Row)`
   background-color: #fff;
 `;
 
-const ChatRoomPage = (props) => {
+const ChatRoomPage = () => {
   const chatWindowRef = useRef(null);
 
   const { progressPercentRoom, isProgressRoomVisible } =
@@ -37,7 +35,5 @@ const ChatRoomPage = (props) => {
     </Helmet>
   );
 };
-
-ChatRoomPage.propTypes = {};
 
 export default ChatRoomPage;

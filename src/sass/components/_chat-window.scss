@@ -189,6 +189,25 @@
         }
       }
 
+      .message-sticker {
+        width: 80px;
+        height: 80px;
+        overflow: hidden;
+        pointer-events: none;
+
+        img {
+          object-fit: cover;
+        }
+      }
+
+      .message-image {
+        border-radius: 7px;
+        overflow: hidden;
+        height: fit-content;
+
+        @include flex(center, center);
+      }
+
       &.me {
         padding-right: 15px;
         padding-left: 0;
@@ -258,10 +277,107 @@
         height: 36px;
         overflow: hidden;
         border-radius: 100%;
-        transition: background-color 150ms linear;
+        transition: background-color 150ms linear, opacity 150ms linear;
 
-        &:hover {
+        &.btn-item-send:hover {
           background-color: rgba(134, 142, 153, 0.1);
+        }
+
+        &.btn-item-image,
+        &.btn-item-sticker {
+          margin-left: 0;
+          padding-left: 0;
+
+          &:hover {
+            opacity: 0.7;
+          }
+        }
+      }
+
+      .btn-sticker-wrapper {
+        position: relative;
+
+        .list-sticker {
+          position: absolute;
+          bottom: 100%;
+          left: -100px;
+          height: 320px;
+          width: 278px;
+          overflow-x: hidden;
+          background-color: var(--color-sidebar-bg);
+          margin-bottom: 10px;
+          border-radius: 8px;
+          padding: 8px 2px;
+          box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+          transition: all 150ms linear;
+
+          @include flex(flex-start, flex-start, wrap);
+
+          @include responsive(600px) {
+            left: 0;
+          }
+
+          &::-webkit-scrollbar {
+            width: 5px;
+            background-color: transparent;
+          }
+
+          &::-webkit-scrollbar-thumb {
+            background: #bcc0c4;
+            border-radius: 4px;
+          }
+
+          .sticker-item-wrapper {
+            width: calc(100% / 4);
+            height: 74px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: opacity 150ms linear;
+
+            &:hover {
+              opacity: 0.7;
+            }
+
+            img {
+              object-fit: cover;
+            }
+          }
+        }
+      }
+
+      .btn-image-wrapper {
+        position: relative;
+
+        .ant-upload-picture-card-wrapper {
+          position: absolute;
+          top: 0;
+          left: 0;
+          margin: 4px 0;
+        }
+
+        .ant-upload {
+          margin: 0;
+          width: 36px;
+          height: 36px;
+          opacity: 0;
+        }
+
+        .ant-upload-list-picture-card-container {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          margin: 0;
+          margin-bottom: -46px;
+          width: calc(100vw - 33px - 361px - 44px);
+          height: 100px;
+          z-index: 100;
+
+          .ant-upload-list-item {
+            background-color: var(--color-message-input-bg);
+            border: 1px solid var(--color-message-input-border);
+            border-radius: 20px;
+          }
         }
       }
     }

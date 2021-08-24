@@ -10,7 +10,6 @@ export const addDocument = (collection, data) => {
 };
 
 // search: 'Ha'
-
 /**
  * db: collection "users"
  * {
@@ -23,7 +22,6 @@ export const addDocument = (collection, data) => {
  *  ...
  * }
  */
-
 // Tao keywords cho displayName, su dung cho search
 export const generateKeywords = (displayName) => {
   // liet ke tat cac hoan vi. vd: name = ["Nguyen", "Van", "Ha"]
