@@ -373,6 +373,18 @@
           height: 100px;
           z-index: 100;
 
+          @include responsive(1023px) {
+            width: calc(100vw - 33px - 301px - 44px);
+          }
+
+          @include responsive(767px) {
+            width: calc(100vw - 33px - 201px - 44px);
+          }
+
+          @include responsive(600px) {
+            width: calc(100vw - 33px - 44px);
+          }
+
           .ant-upload-list-item {
             background-color: var(--color-message-input-bg);
             border: 1px solid var(--color-message-input-border);
