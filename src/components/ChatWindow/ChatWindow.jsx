@@ -63,12 +63,20 @@ const ChatWindow = ({ chatWindowRef }) => {
    */
   const messagesEndRef = useRef(null);
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView();
-  };
+  // const scrollToBottom = () => {
+  //   messagesEndRef.current?.scrollIntoView();
+  // };
+
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, [messages]);
 
   useEffect(() => {
-    scrollToBottom();
+    // scroll to bottom after message changed
+    if (messagesEndRef?.current) {
+      messagesEndRef.current.scrollTop =
+        messagesEndRef.current.scrollHeight + 50;
+    }
   }, [messages]);
 
   /**
@@ -302,7 +310,7 @@ const ChatWindow = ({ chatWindowRef }) => {
             {/* Handle Spin visible when user send Image */}
             {isSpinVisible ? <Spin tip="Loading..."></Spin> : ""}
 
-            <div className="message-wrapper">
+            <div className="message-wrapper" ref={messagesEndRef}>
               {messages.map((mes) => (
                 <Message
                   key={mes.id}
@@ -314,7 +322,7 @@ const ChatWindow = ({ chatWindowRef }) => {
                   type={mes.type}
                 />
               ))}
-              <div ref={messagesEndRef}></div>
+              {/* <div ref={messagesEndRef}></div> */}
             </div>
 
             <div className="message-input">
