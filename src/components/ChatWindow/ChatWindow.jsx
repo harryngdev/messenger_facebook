@@ -10,6 +10,7 @@ import {
   Alert,
   Upload,
   Modal,
+  Spin,
 } from "antd";
 import { UsergroupAddOutlined, LeftOutlined } from "@ant-design/icons";
 import { addDocument } from "../../firebase/services";
@@ -38,6 +39,7 @@ const ChatWindow = ({ chatWindowRef }) => {
     user: { uid, photoURL, displayName },
   } = React.useContext(AuthContext);
   const [inputValue, setInputValue] = useState("");
+  const [isSpinVisible, setIsSpinVisible] = useState(false);
   const [form] = Form.useForm();
   const inputRef = useRef(null);
 
@@ -190,7 +192,9 @@ const ChatWindow = ({ chatWindowRef }) => {
 
         uploadTask.on(
           "state_changed",
-          (snapshot) => {},
+          (snapshot) => {
+            setIsSpinVisible(true);
+          },
           (error) => {
             console.log(error);
           },
@@ -213,6 +217,7 @@ const ChatWindow = ({ chatWindowRef }) => {
                  * Handle Reset
                  */
                 handleCancel();
+                setIsSpinVisible(false);
               });
           }
         );
@@ -294,6 +299,9 @@ const ChatWindow = ({ chatWindowRef }) => {
           </div>
 
           <div className="chat-window-content">
+            {/* Handle Spin visible when user send Image */}
+            {isSpinVisible ? <Spin tip="Loading..."></Spin> : ""}
+
             <div className="message-wrapper">
               {messages.map((mes) => (
                 <Message

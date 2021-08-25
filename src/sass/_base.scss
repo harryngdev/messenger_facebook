@@ -30,8 +30,17 @@ body {
   width: 100%;
   z-index: 999;
 
+  .ant-progress-inner {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
   .ant-progress-text {
     color: var(--color-text-primary);
+  }
+
+  .anticon-check-circle {
+    color: #52c41a;
   }
 }
 

@@ -329,11 +329,20 @@
           &:nth-child(2) {
             padding-right: 25px;
             padding-left: 6px;
+
+            @include responsive(765px) {
+              padding-left: 25px;
+              margin-top: 3px;
+            }
           }
 
           &:nth-child(3) {
             padding-left: 50px;
             padding-right: 25px;
+
+            @include responsive(963px) {
+              margin-top: 10px;
+            }
 
             a {
               color: #000;
@@ -344,6 +353,10 @@
             padding-left: 25px;
             padding-right: 50px;
 
+            @include responsive(1112px) {
+              margin-top: 10px;
+            }
+
             a {
               color: #000;
             }
@@ -351,6 +364,10 @@
 
           &:nth-child(5) {
             padding: 0 25px;
+
+            @include responsive(1248px) {
+              margin-top: 10px;
+            }
 
             .ant-dropdown-link {
               color: #828282;
@@ -367,6 +384,10 @@
 
           &:nth-child(6) {
             padding-left: 25px;
+
+            @include responsive(1423px) {
+              margin-top: 10px;
+            }
 
             img {
               width: 150px;

@@ -25,9 +25,10 @@ const storage = firebase.storage();
 /**
  * Trỏ firebase (auth, db) vào local
  */
-// auth.useEmulator("http://localhost:9099");
 // if (window.location.hostname === "localhost") {
+//   auth.useEmulator("http://localhost:9099");
 //   db.useEmulator("localhost", "8080");
+//   storage.useEmulator("localhost", "9199");
 // }
 
 export { db, auth, storage };
