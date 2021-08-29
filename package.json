@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.8.3",
     "antd": "^4.16.11",
     "date-fns": "^2.23.0",
+    "emoji-picker-react": "^3.4.8",
     "firebase": "^8.9.1",
     "lodash": "^4.17.21",
     "node-sass": "^6.0.1",

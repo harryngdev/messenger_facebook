@@ -20,6 +20,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import useFireStore from "../../hooks/useFirestore";
 import { PlusOutlined } from "@ant-design/icons";
 import { storage } from "../../firebase/config";
+import Picker from "emoji-picker-react";
 
 import logo from "./../../assets/images/logo/messenger.svg";
 
@@ -63,19 +64,10 @@ const ChatWindow = ({ chatWindowRef }) => {
    */
   const messagesEndRef = useRef(null);
 
-  // const scrollToBottom = () => {
-  //   messagesEndRef.current?.scrollIntoView();
-  // };
-
-  // useEffect(() => {
-  //   scrollToBottom();
-  // }, [messages]);
-
   useEffect(() => {
     // scroll to bottom after message changed
     if (messagesEndRef?.current) {
-      messagesEndRef.current.scrollTop =
-        messagesEndRef.current.scrollHeight + 50;
+      messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
     }
   }, [messages]);
 
@@ -107,6 +99,39 @@ const ChatWindow = ({ chatWindowRef }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isStickerListVisible]);
+
+  /**
+   * Handle Emoji Box
+   */
+  const [isEmojiBoxVisible, setIsEmojiBoxVisible] = useState(false);
+
+  const handleEmojiBoxVisible = () => {
+    setIsEmojiBoxVisible(!isEmojiBoxVisible);
+  };
+
+  const emojiBoxRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (emojiBoxRef.current && !emojiBoxRef.current.contains(event.target)) {
+        setIsEmojiBoxVisible(!isEmojiBoxVisible);
+      }
+    }
+
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isEmojiBoxVisible]);
+
+  const onEmojiClick = (event, emojiObject) => {
+    form.setFieldsValue({
+      message: inputValue.concat(emojiObject.emoji),
+    });
+    setInputValue(inputValue.concat(emojiObject.emoji));
+  };
 
   /**
    * Handle Send Image
@@ -322,7 +347,6 @@ const ChatWindow = ({ chatWindowRef }) => {
                   type={mes.type}
                 />
               ))}
-              {/* <div ref={messagesEndRef}></div> */}
             </div>
 
             <div className="message-input">
@@ -417,6 +441,33 @@ const ChatWindow = ({ chatWindowRef }) => {
                     onPressEnter={() => handleOnSubmit("text")}
                   />
                 </Form.Item>
+
+                <div className="btn-emoji-wrapper">
+                  <Button
+                    className={`btn-item btn-item-emoji ${
+                      isEmojiBoxVisible === true ? "active-pointer" : ""
+                    }`}
+                    type="text"
+                    onClick={handleEmojiBoxVisible}
+                  >
+                    <svg height="28px" viewBox="0 0 36 36" width="28px">
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M18 29c6.075 0 11-4.925 11-11S24.075 7 18 7 7 11.925 7 18s4.925 11 11 11zm-5.25-13c0-1.25.563-2 1.5-2 .938 0 1.5.75 1.5 2s-.563 2-1.5 2c-.938 0-1.5-.75-1.5-2zm7.5 0c0-1.25.563-2 1.5-2 .938 0 1.5.75 1.5 2s-.563 2-1.5 2c-.938 0-1.5-.75-1.5-2zm-7.52 5.464a1 1 0 011.41-.12 5.963 5.963 0 003.856 1.406c1.47 0 2.813-.528 3.856-1.406a1 1 0 111.288 1.53 7.962 7.962 0 01-5.144 1.876 7.962 7.962 0 01-5.144-1.877 1 1 0 01-.121-1.409z"
+                        fill="#4099ff"
+                      ></path>
+                    </svg>
+                  </Button>
+
+                  {isEmojiBoxVisible ? (
+                    <div className="emoji-box" ref={emojiBoxRef}>
+                      <Picker onEmojiClick={onEmojiClick} />
+                    </div>
+                  ) : (
+                    ""
+                  )}
+                </div>
 
                 <Button
                   className="btn-item btn-item-send"

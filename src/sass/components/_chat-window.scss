@@ -265,6 +265,7 @@
       height: 100%;
       width: 100%;
       padding: 15px 10px 30px 23px;
+      position: relative;
       @include flex(center, space-between);
 
       .input-item {
@@ -312,9 +313,19 @@
         &.btn-item-sticker {
           margin-left: 0;
           padding-left: 0;
+          transition: opacity 150ms linear;
 
           &:hover {
-            opacity: 0.7;
+            opacity: 0.5;
+          }
+        }
+
+        &.btn-item-emoji {
+          padding: 0 !important;
+          transition: opacity 150ms linear;
+
+          &:hover {
+            opacity: 0.5;
           }
         }
       }
@@ -374,6 +385,10 @@
       .btn-image-wrapper {
         position: relative;
 
+        &:hover > .btn-item-image {
+          opacity: 0.5;
+        }
+
         .ant-upload-picture-card-wrapper {
           position: absolute;
           top: 0;
@@ -414,6 +429,62 @@
             background-color: var(--color-message-input-bg);
             border: 1px solid var(--color-message-input-border);
             border-radius: 20px;
+          }
+        }
+      }
+
+      .btn-emoji-wrapper {
+        position: absolute;
+        border-radius: 100%;
+        top: 15px;
+        right: 54px;
+
+        .emoji-box {
+          position: absolute;
+          bottom: 100%;
+          right: 0;
+          margin-bottom: 10px;
+          transition: all 150ms linear;
+
+          .emoji-picker-react {
+            background-color: var(--color-sidebar-bg);
+            box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
+              inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+            border: 0;
+
+            .emoji-categories {
+              background-color: #fff;
+            }
+
+            input.emoji-search {
+              display: none;
+            }
+
+            .skin-tones-list {
+              top: 10px;
+            }
+
+            .content-wrapper {
+              margin-top: 20px;
+            }
+
+            .emoji-scroll-wrapper {
+              &::-webkit-scrollbar {
+                width: 5px;
+                background-color: transparent;
+              }
+
+              &::-webkit-scrollbar-thumb {
+                background: #bcc0c4;
+                border-radius: 4px;
+              }
+            }
+
+            .emoji-group {
+              &:before {
+                background-color: var(--color-sidebar-bg);
+              }
+            }
           }
         }
       }
