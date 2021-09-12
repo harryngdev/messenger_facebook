@@ -15,11 +15,13 @@ const LoginContent = (props) => {
           <div className="login-content-left">
             <div className="login-form-wrapper">
               <Typography.Title className="title">
-                Tụ họp <br /> mọi lúc, mọi nơi
+                Hang out
+                <br />
+                anytime, anywhere
               </Typography.Title>
               <Typography.Text className="desc">
-                Với Messenger, việc kết nối với những người mình yêu mến thật
-                đơn giản và thú vị.
+                Messenger make it easy and fun to stay close to your favorite
+                people.
               </Typography.Text>
               {hasAccount ? (
                 <LoginForm

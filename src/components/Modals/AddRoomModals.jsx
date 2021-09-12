@@ -4,17 +4,8 @@ import { AppContext } from "../../context/AppProvider";
 import { addDocument } from "../../firebase/services";
 import { AuthContext } from "../../context/AuthProvider";
 import { storage } from "../../firebase/config";
-
+import getBase64 from "./../../utils/getBase64";
 import { PlusOutlined } from "@ant-design/icons";
-
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-}
 
 const AddRoomModals = () => {
   const {
@@ -81,60 +72,62 @@ const AddRoomModals = () => {
       form.getFieldValue().name === undefined ||
       form.getFieldValue().name.trim().length < 1
     ) {
-      setNameError("Hãy nhập tên nhóm!");
+      setNameError("Please enter this field");
+      return;
     } else if (
       form.getFieldValue().description === undefined ||
       form.getFieldValue().description.trim().length < 1
     ) {
-      setDescriptionError("Hãy nhập mô tả nhóm!");
-    } else {
-      if (image === null) {
-        setImageError("Hãy thêm ảnh nhóm!");
-        return;
-      }
-
-      const uploadTask = storage.ref(`rooms/avt/${image.name}`).put(image);
-
-      uploadTask.on(
-        "state_changed",
-        (snapshot) => {
-          setIsProgressRoomVisible(true);
-
-          const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          );
-
-          setProgressPercentRoom(progress);
-        },
-        (error) => {
-          console.log(error);
-        },
-        () => {
-          storage
-            .ref("rooms/avt")
-            .child(image.name)
-            .getDownloadURL()
-            .then((url) => {
-              const valueRoom = {
-                ...form.getFieldValue(),
-                name: form.getFieldValue().name.trim(),
-                description: form.getFieldValue().description.trim(),
-                backgroundURL: url,
-              };
-
-              addDocument("rooms", { ...valueRoom, members: [uid] });
-
-              /**
-               * reset form value
-               */
-              handleCancel();
-
-              setIsProgressRoomVisible(false);
-              setProgressPercentRoom(0);
-            });
-        }
-      );
+      setDescriptionError("Please enter this field");
+      return;
+    } else if (fileList.length === 0) {
+      setImageError("Please upload this field");
+      return;
     }
+
+    const uploadTask = storage.ref(`rooms/avt/${image.name}`).put(image);
+
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        setIsProgressRoomVisible(true);
+
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+
+        setProgressPercentRoom(progress);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("rooms/avt")
+          .child(image.name)
+          .getDownloadURL()
+          .then((url) => {
+            const valueRoom = {
+              ...form.getFieldValue(),
+              name: form.getFieldValue().name.trim(),
+              description: form.getFieldValue().description.trim(),
+              backgroundURL: url,
+              creator: uid,
+              type: "roomchat",
+            };
+
+            addDocument("rooms", { ...valueRoom, members: [uid] });
+
+            /**
+             * reset form value
+             */
+            handleCancel();
+
+            setIsProgressRoomVisible(false);
+            setProgressPercentRoom(0);
+          });
+      }
+    );
   };
 
   const handleCancel = () => {
@@ -150,23 +143,23 @@ const AddRoomModals = () => {
   return (
     <div>
       <Modal
-        title="Tạo nhóm mới"
+        title="New Group"
         visible={isAddRoomVisible}
         onOk={handleOk}
         onCancel={handleCancel}
       >
         <Form form={form} layout="vertical">
-          <Form.Item label="Tên nhóm" name="name">
-            <Input placeholder="Nhập tên phòng" />
+          <Form.Item label="Group Name" name="name">
+            <Input placeholder="Group Name" />
           </Form.Item>
           <Typography.Text className="msgError">{nameError}</Typography.Text>
-          <Form.Item label="Mô tả nhóm" name="description">
-            <Input.TextArea placeholder="Nhập mô tả" />
+          <Form.Item label="Group Description" name="description">
+            <Input.TextArea placeholder="Group Description" />
           </Form.Item>
           <Typography.Text className="msgError">
             {discriptionError}
           </Typography.Text>
-          <Form.Item label="Thêm ảnh nhóm">
+          <Form.Item label="Chat Photo">
             <>
               <Upload
                 action="https://www.mocky.io/v2/5cc8019d300000980a055e76"

@@ -7,7 +7,6 @@ import LogoHeader from "./../../assets/images/login-pages/logo-header.png";
 const LoginHeader = () => {
   return (
     <Layout.Header>
-      <Row style={{ display: "none" }}></Row>
       <Row
         justify="space-between"
         align="middle"
@@ -21,16 +20,16 @@ const LoginHeader = () => {
         <Col>
           <Row className="header-nav">
             <Col>
-              <Link to="/login">Phòng họp mặt</Link>
+              <Link to="/login">Rooms</Link>
             </Col>
             <Col>
-              <Link to="/login">Tính năng</Link>
+              <Link to="/login">Features</Link>
             </Col>
             <Col>
-              <Link to="/login">Quyền riêng tư & an toàn</Link>
+              <Link to="/login">Privacy & Safety</Link>
             </Col>
             <Col>
-              <Link to="/login">Dành cho nhà phát triển</Link>
+              <Link to="/login">For Developers</Link>
             </Col>
           </Row>
         </Col>

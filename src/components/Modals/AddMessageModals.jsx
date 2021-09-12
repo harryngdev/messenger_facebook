@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Modal, Form, Select, Spin, Avatar } from "antd";
 import { AppContext } from "../../context/AppProvider";
+import { addDocument } from "../../firebase/services";
+import { AuthContext } from "../../context/AuthProvider";
+
 import { debounce } from "lodash";
 import { db } from "../../firebase/config";
+import firebase from "./../../firebase/config";
 
 function DebounceSelect({
   fetchOptions,
@@ -74,64 +78,78 @@ async function fetchUserList(search, currentMembers) {
         .filter((opt) => !currentMembers.includes(opt.value));
     });
 }
-const InviteMemberModal = () => {
+
+const AddMessageModals = () => {
+  const { isNewMessageVisible, setIsNewMessageVisible, messages } =
+    React.useContext(AppContext);
   const {
-    isInviteMemberVisible,
-    setIsInviteMemberVisible,
-    selectedRoomId,
-    selectedRoom,
-  } = React.useContext(AppContext);
+    user: { uid, photoURL, displayName },
+  } = React.useContext(AuthContext);
   const [value, setValue] = useState([]);
   const [form] = Form.useForm(); // ReactHooks
 
   const handleOk = () => {
     /**
+     * handle logic
+     */
+    if (value.value) {
+      const { label } = value;
+      const valueMessage = {
+        name: [displayName, label[1]],
+        description: firebase.firestore.FieldValue.serverTimestamp(),
+        backgroundURL: [photoURL, label[0].props.src],
+        creator: uid,
+        type: "message",
+        members: [uid, value.value],
+      };
+      addDocument("rooms", { ...valueMessage });
+    }
+
+    /**
      * reset form value
      */
     form.resetFields();
     setValue([]);
-
-    /**
-     * handle logic
-     * update members in current rooms
-     */
-    const roomRef = db.collection("rooms").doc(selectedRoomId);
-
-    roomRef.update({
-      members: [...selectedRoom.members, ...value.map((val) => val.value)],
-    });
-
-    setIsInviteMemberVisible(false);
+    setIsNewMessageVisible(false);
   };
 
   const handleCancel = () => {
     form.resetFields();
     setValue([]);
 
-    setIsInviteMemberVisible(false);
+    setIsNewMessageVisible(false);
+  };
+
+  const handleCurrentMembers = () => {
+    let tmp1 = [uid];
+    let tmp2 = messages.reduce((a, b) => {
+      return a.concat(b.members);
+    }, []);
+    let result = [];
+    result = result.concat(tmp1);
+    result = result.concat(tmp2);
+    return [...new Set(result)];
   };
 
   return (
     <div>
       <Modal
-        title="Add"
-        visible={isInviteMemberVisible}
+        title="New Message"
+        visible={isNewMessageVisible}
         onOk={handleOk}
         onCancel={handleCancel}
         destroyOnClose={true}
       >
         <Form form={form} layout="vertical">
-          {/* Tìm kiếm người dùng trên db */}
           <DebounceSelect
-            mode="multiple"
+            showSearch
             name="search-user"
-            label="Choose People"
             value={value}
-            placeholder="Search"
+            placeholder="To:"
             fetchOptions={fetchUserList}
             onChange={(newValue) => setValue(newValue)}
             style={{ width: "100%" }}
-            currentMembers={selectedRoom.members}
+            currentMembers={handleCurrentMembers()}
           />
         </Form>
       </Modal>
@@ -139,4 +157,4 @@ const InviteMemberModal = () => {
   );
 };
 
-export default InviteMemberModal;
+export default AddMessageModals;

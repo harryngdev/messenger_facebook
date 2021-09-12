@@ -11,14 +11,12 @@ import {
 const fbProvider = new firebase.auth.FacebookAuthProvider();
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-const LoginForm = (props) => {
+const LoginForm = ({ hasAccount, setHasAccount }) => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
 
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
-  const { hasAccount, setHasAccount } = props;
 
   const clearErrors = () => {
     setEmailError("");
@@ -27,6 +25,7 @@ const LoginForm = (props) => {
 
   const handleLogin = () => {
     clearErrors();
+
     firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
@@ -99,7 +98,7 @@ const LoginForm = (props) => {
           type="password"
           name="password"
           bordered={false}
-          placeholder="Mật khẩu"
+          placeholder="Password"
         />
         {passwordError ? (
           <Typography.Text className="msgError">
@@ -116,7 +115,7 @@ const LoginForm = (props) => {
           className="login-form-button"
           onClick={handleLogin}
         >
-          Đăng nhập
+          Log In
         </Button>
         <Button
           type="text"
@@ -124,7 +123,7 @@ const LoginForm = (props) => {
           onClick={() => setHasAccount(!hasAccount)}
         >
           <p>
-            Chưa có tài khoản? <span>Đăng ký</span>
+            <span>Create New Account</span>
           </p>
         </Button>
       </Form.Item>
@@ -142,7 +141,5 @@ const LoginForm = (props) => {
     </Form>
   );
 };
-
-LoginForm.propTypes = {};
 
 export default LoginForm;

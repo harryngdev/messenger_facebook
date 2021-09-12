@@ -5,7 +5,17 @@ import useFireStore from "../hooks/useFirestore";
 export const AppContext = React.createContext();
 
 export default function AppProvider({ children }) {
+  /**
+   * Component AddMessageModals
+   */
+  const [isNewMessageVisible, setIsNewMessageVisible] = useState(false);
+  /**
+   * Component AddRoomModals
+   */
   const [isAddRoomVisible, setIsAddRoomVisible] = useState(false);
+  /**
+   * Component InviteMemberModal
+   */
   const [isInviteMemberVisible, setIsInviteMemberVisible] = useState(false);
   const [selectedRoomId, setSelectedRoomId] = useState("");
   const [progressPercentRoom, setProgressPercentRoom] = useState(0);
@@ -31,6 +41,8 @@ export default function AppProvider({ children }) {
   }, [uid]);
 
   const rooms = useFireStore("rooms", roomsCondition);
+
+  const messages = rooms.filter((room) => room.type === "message");
 
   const selectedRoom = React.useMemo(
     () => rooms.find((room) => room.id === selectedRoomId) || {},
@@ -70,8 +82,11 @@ export default function AppProvider({ children }) {
     <AppContext.Provider
       value={{
         rooms,
+        messages,
         members,
         stickerCollection,
+        isNewMessageVisible,
+        setIsNewMessageVisible,
         isAddRoomVisible,
         setIsAddRoomVisible,
         selectedRoomId,

@@ -40,6 +40,7 @@
     }
 
     .btn-add-room,
+    .btn-new-message,
     .btn-more {
       width: 36px;
       height: 36px;
@@ -56,12 +57,55 @@
       }
     }
 
+    .btn-add-room,
     .btn-more {
       margin-left: 12px;
     }
   }
 
+  .search-messenger {
+    padding: 4px 16px 12px 16px;
+
+    .ant-form-item {
+      margin-right: 0;
+      flex: 1;
+
+      .ant-form-item-control-input {
+        min-height: 36px !important;
+        width: 100%;
+
+        .ant-input-affix-wrapper {
+          height: 36px;
+          border-radius: 50px;
+          border: 0;
+          background-color: rgba(134, 142, 153, 0.1);
+
+          .ant-input-prefix {
+            color: var(--color-text-primary);
+          }
+
+          .ant-input {
+            color: var(--color-text-primary);
+            background-color: transparent;
+            font-family: "Roboto", sans-serif;
+            font-size: 16px;
+            font-weight: 400;
+
+            &::-webkit-input-placeholder {
+              font-family: "Roboto", sans-serif;
+            }
+
+            &::-moz-input-placeholder {
+              font-family: "Roboto", sans-serif;
+            }
+          }
+        }
+      }
+    }
+  }
+
   .room-list {
+    // height: calc(100vh - 68px - 68px);
     height: calc(100vh - 68px);
     overflow-y: auto;
 
@@ -77,6 +121,7 @@
 
     .ant-collapse-header {
       color: #58a6ff;
+      // padding-top: 0 !important;
 
       .ant-collapse-header-text {
         font-weight: 500;

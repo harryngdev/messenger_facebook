@@ -8,7 +8,7 @@ import LogoFooter from "./../../assets/images/login-pages/logo-footer.jpg";
 const language = (
   <Menu className="language">
     <Menu.Item key={0}>
-      <Link to="/login">Tiếng Việt</Link>
+      <Link to="/login">English (US)</Link>
     </Menu.Item>
     <Menu.Divider />
     <Menu.Item key={1}>
@@ -16,7 +16,7 @@ const language = (
     </Menu.Item>
     <Menu.Divider />
     <Menu.Item key={2}>
-      <Link to="/login">English (US)</Link>
+      <Link to="/login">Tiếng Việt</Link>
     </Menu.Item>
   </Menu>
 );
@@ -27,14 +27,14 @@ const LoginFooter = () => {
       <Row justify="center" align="middle">
         <Col>© Facebook 2021.</Col>
         <Col>
-          Logo của Apple và Google Play là nhãn hiệu hàng hóa thuộc chủ sở hữu
-          tương ứng.
+          The Apple and Google Play logos are trademarks of their respective
+          owners.
         </Col>
         <Col>
-          <Link to="/login">Chính sách dữ liệu</Link>
+          <Link to="/login">Data Policy</Link>
         </Col>
         <Col>
-          <Link to="/login">Điều khoản</Link>
+          <Link to="/login">Cookie Policy</Link>
         </Col>
         <Col>
           <Dropdown overlay={language} trigger={["click"]}>
@@ -43,7 +43,7 @@ const LoginFooter = () => {
               className="ant-dropdown-link"
               onClick={(e) => e.preventDefault()}
             >
-              Tiếng Việt <CaretDownOutlined />
+              English (US) <CaretDownOutlined />
             </Link>
           </Dropdown>
         </Col>

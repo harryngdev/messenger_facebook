@@ -21,21 +21,19 @@ import useFireStore from "../../hooks/useFirestore";
 import { PlusOutlined } from "@ant-design/icons";
 import { storage } from "../../firebase/config";
 import Picker from "emoji-picker-react";
+import getBase64 from "../../utils/getBase64";
 
 import logo from "./../../assets/images/logo/messenger.svg";
-
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-}
+import formatDate from "../../utils/formatDate";
 
 const ChatWindow = ({ chatWindowRef }) => {
-  const { selectedRoom, members, setIsInviteMemberVisible, stickerCollection } =
-    React.useContext(AppContext);
+  const {
+    selectedRoom,
+    members,
+    setSelectedRoomId,
+    setIsInviteMemberVisible,
+    stickerCollection,
+  } = React.useContext(AppContext);
   const {
     user: { uid, photoURL, displayName },
   } = React.useContext(AuthContext);
@@ -278,40 +276,58 @@ const ChatWindow = ({ chatWindowRef }) => {
             <div className="header__back">
               <LeftOutlined
                 type="icon-tuichu"
-                title="Quay lại"
+                title="Back"
                 className="header__back-btn"
-                onClick={() => chatWindowRef.current.classList.toggle("show")}
+                onClick={() => {
+                  setSelectedRoomId("");
+                  chatWindowRef.current.classList.toggle("show");
+                }}
               />
             </div>
 
             <div className="header__info">
               <div className="header__info-avt">
-                <Avatar src={selectedRoom.backgroundURL} size={40}>
-                  {selectedRoom.backgroundURL
-                    ? ""
-                    : selectedRoom.name?.charAt(0)?.toUpperCase()}
-                </Avatar>
+                <Avatar
+                  src={
+                    selectedRoom.type === "roomchat"
+                      ? selectedRoom.backgroundURL
+                      : selectedRoom.creator !== uid
+                      ? selectedRoom.backgroundURL[0]
+                      : selectedRoom.backgroundURL[1]
+                  }
+                  size={40}
+                />
               </div>
               <div className="header__info-description">
                 <Typography.Title className="header__info-description-title">
-                  {selectedRoom.name}
+                  {selectedRoom.type === "roomchat"
+                    ? selectedRoom.name
+                    : selectedRoom.creator !== uid
+                    ? selectedRoom.name[0]
+                    : selectedRoom.name[1]}
                 </Typography.Title>
                 <Typography.Text className="header__info-description-details">
-                  {selectedRoom.description}
+                  {selectedRoom.type === "roomchat"
+                    ? selectedRoom.description
+                    : formatDate(selectedRoom.description?.seconds)}
                 </Typography.Text>
               </div>
             </div>
 
             <div className="header__control">
-              <Button
-                icon={<UsergroupAddOutlined />}
-                type="text"
-                title="Thêm thành viên"
-                size="large"
-                className="header__control-btn-add-user"
-                style={{ color: "#4099ff", fontWeight: "bolder" }}
-                onClick={() => setIsInviteMemberVisible(true)}
-              />
+              {selectedRoom.type === "roomchat" ? (
+                <Button
+                  icon={<UsergroupAddOutlined />}
+                  type="text"
+                  title="Add people"
+                  size="large"
+                  className="header__control-btn-add-user"
+                  style={{ color: "#4099ff", fontWeight: "bolder" }}
+                  onClick={() => setIsInviteMemberVisible(true)}
+                />
+              ) : (
+                ""
+              )}
 
               <Avatar.Group
                 maxCount={2}
@@ -351,8 +367,12 @@ const ChatWindow = ({ chatWindowRef }) => {
 
             <div className="message-input">
               <Form className="message-input-inner" form={form}>
-                <div className="btn-image-wrapper">
-                  <Button className="btn-item btn-item-image" type="text">
+                <div className="btn-image-wrapper" title="Attach a photo">
+                  <Button
+                    className="btn-item btn-item-image"
+                    type="text"
+                    title="Attach a photo"
+                  >
                     <svg viewBox="0 0 36 36" height="28px" width="28px">
                       <path
                         d="M13.5 16.5a2 2 0 100-4 2 2 0 000 4z"
@@ -397,6 +417,7 @@ const ChatWindow = ({ chatWindowRef }) => {
                       isStickerListVisible === true ? "active-pointer" : ""
                     }`}
                     type="text"
+                    title="Choose a sticker"
                     onClick={handleStickerListVisible}
                   >
                     <svg viewBox="0 0 36 36" height="28px" width="28px">
@@ -448,6 +469,7 @@ const ChatWindow = ({ chatWindowRef }) => {
                       isEmojiBoxVisible === true ? "active-pointer" : ""
                     }`}
                     type="text"
+                    title="Choose an emoji"
                     onClick={handleEmojiBoxVisible}
                   >
                     <svg height="28px" viewBox="0 0 36 36" width="28px">
@@ -472,6 +494,7 @@ const ChatWindow = ({ chatWindowRef }) => {
                 <Button
                   className="btn-item btn-item-send"
                   type="text"
+                  title="Send"
                   onClick={() => handleOnSubmit("text")}
                 >
                   <svg width="20px" height="20px" viewBox="0 0 24 24">

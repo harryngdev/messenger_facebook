@@ -1,5 +1,4 @@
 import React from "react";
-// import PropTypes from "prop-types";
 import { Row, Col } from "antd";
 
 import UserInfo from "./../UserInfo/UserInfo";
@@ -20,7 +19,5 @@ const Sidebar = ({ chatWindowRef }) => {
     </Col>
   );
 };
-
-Sidebar.propTypes = {};
 
 export default Sidebar;

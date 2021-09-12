@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import PropTypes from 'prop-types'
 import { Avatar, Typography, Button, Dropdown, Menu } from "antd";
 import styled from "styled-components";
 import { auth } from "./../../firebase/config";
@@ -25,7 +24,12 @@ const UserInfo = (props) => {
     user: { displayName, photoURL },
   } = React.useContext(AuthContext);
 
-  const { setIsAddRoomVisible, clearState } = React.useContext(AppContext);
+  const { setIsNewMessageVisible, setIsAddRoomVisible, clearState } =
+    React.useContext(AppContext);
+
+  const handleNewMessage = () => {
+    setIsNewMessageVisible(true);
+  };
 
   const handleAddRoom = () => {
     setIsAddRoomVisible(true);
@@ -67,7 +71,7 @@ const UserInfo = (props) => {
           />
         </Button>
         <span className="title">
-          {theme === "light" ? "Dark" : "Light"} mode
+          {theme === "light" ? "Dark" : "Light"} Mode
         </span>
       </Menu.Item>
 
@@ -88,7 +92,7 @@ const UserInfo = (props) => {
             <path d="M14.498 16.75h9.752a.25.25 0 00.25-.25v-1.858a1 1 0 011.642-.766l4.002 3.356a1 1 0 010 1.532l-4.002 3.357a1 1 0 01-1.642-.767V19.5a.25.25 0 00-.25-.25h-9.752a1 1 0 01-1-1v-.5a1 1 0 011-1z"></path>
           </svg>
         </Button>
-        <span className="title">Đăng xuất</span>
+        <span className="title">Log Out</span>
       </Menu.Item>
     </Menu>
   );
@@ -106,9 +110,9 @@ const UserInfo = (props) => {
 
       <Button
         shape="circle"
-        className="btn-add-room"
-        title="Thêm phòng"
-        onClick={handleAddRoom}
+        className="btn-new-message"
+        title="New message"
+        onClick={handleNewMessage}
       >
         <svg viewBox="0 0 36 36" height="28" width="28">
           <path d="M17.305 16.57a1.998 1.998 0 00-.347.467l-1.546 2.87a.5.5 0 00.678.677l2.87-1.545c.171-.093.328-.21.466-.347l8.631-8.631a1.5 1.5 0 10-2.121-2.122l-8.631 8.632z"></path>
@@ -116,7 +120,23 @@ const UserInfo = (props) => {
         </svg>
       </Button>
 
-      <Button shape="circle" className="btn-more">
+      <Button
+        shape="circle"
+        className="btn-add-room"
+        title="Create a new group"
+        onClick={handleAddRoom}
+      >
+        <svg viewBox="0 0 36 36" height="28" width="28">
+          <path
+            clipRule="evenodd"
+            d="M5 13.5a4 4 0 014-4h10a4 4 0 014 4v9a4 4 0 01-4 4H9a4 4 0 01-4-4v-9zm8 0a1 1 0 112 0v3.25c0 .138.112.25.25.25h3.25a1 1 0 110 2h-3.25a.25.25 0 00-.25.25v3.25a1 1 0 11-2 0v-3.25a.25.25 0 00-.25-.25H9.5a1 1 0 110-2h3.25a.25.25 0 00.25-.25V13.5z"
+            fillRule="evenodd"
+          ></path>
+          <path d="M29.552 23.393l-3.723-1.861A1.5 1.5 0 0125 20.19v-4.38a1.5 1.5 0 01.829-1.342l3.723-1.861A1 1 0 0131 13.5v9a1 1 0 01-1.448.894z"></path>
+        </svg>
+      </Button>
+
+      <Button shape="circle" className="btn-more" title="Options">
         <Dropdown overlay={menu} trigger={["click"]}>
           <svg viewBox="0 0 36 36" height="28" width="28">
             <path d="M12.5 18A2.25 2.25 0 118 18a2.25 2.25 0 014.5 0zm7.75 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm5.5 2.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z"></path>
@@ -126,7 +146,5 @@ const UserInfo = (props) => {
     </UserInfoStyled>
   );
 };
-
-UserInfo.propTypes = {};
 
 export default UserInfo;

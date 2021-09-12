@@ -3,17 +3,15 @@ import { Form, Input, Button, Typography, Upload, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import firebase, { storage } from "./../../firebase/config";
 import { addDocument, generateKeywords } from "../../firebase/services";
+import validateEmail from "../../utils/validateEmail";
+import getBase64 from "../../utils/getBase64";
 
-function getBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-}
-
-const RegisterForm = (props) => {
+const RegisterForm = ({
+  hasAccount,
+  setHasAccount,
+  setProgressPercent,
+  setIsProgressVisible,
+}) => {
   const [displayName, setDisplayName] = useState("");
   const [displayNameError, setDisplayNameError] = useState("");
 
@@ -25,20 +23,6 @@ const RegisterForm = (props) => {
 
   const [image, setImage] = useState(null);
   const [imageError, setImageError] = useState("");
-
-  const {
-    hasAccount,
-    setHasAccount,
-    setProgressPercent,
-    setIsProgressVisible,
-  } = props;
-
-  const clearErrors = () => {
-    setDisplayNameError("");
-    setEmailError("");
-    setPasswordError("");
-    setImageError("");
-  };
 
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewImage, setPreviewImage] = useState("");
@@ -78,13 +62,30 @@ const RegisterForm = (props) => {
     </div>
   );
 
+  const clearErrors = () => {
+    setDisplayNameError("");
+    setEmailError("");
+    setPasswordError("");
+    setImageError("");
+  };
+
   const handleSignup = async () => {
     clearErrors();
 
-    if (!displayName) setDisplayNameError("The username is badly formatted.");
-
-    if (image === null) {
-      setImageError("The avatar is badly formatted.");
+    if (!displayName.trim()) {
+      setDisplayNameError("Username is badly formatted.");
+      return;
+    } else if (!validateEmail(email)) {
+      setEmailError("Email is invalid or already taken.");
+      return;
+    } else if (!password) {
+      setPasswordError("Password is badly formatted.");
+      return;
+    } else if (password.length < 6) {
+      setPasswordError("Password is too low (minimum is 6 characters).");
+      return;
+    } else if (fileList.length === 0) {
+      setImageError("Avatar is badly formatted.");
       return;
     }
 
@@ -181,7 +182,7 @@ const RegisterForm = (props) => {
           type="password"
           name="password"
           bordered={false}
-          placeholder="Mật khẩu"
+          placeholder="Password"
         />
         {passwordError ? (
           <Typography.Text className="msgError">
@@ -224,7 +225,7 @@ const RegisterForm = (props) => {
           className="login-form-button"
           onClick={handleSignup}
         >
-          Đăng ký
+          Sign Up
         </Button>
         <Button
           type="text"
@@ -232,14 +233,12 @@ const RegisterForm = (props) => {
           onClick={() => setHasAccount(!hasAccount)}
         >
           <p>
-            Đã có tài khoản? <span>Đăng nhập</span>
+            <span>Log In</span>
           </p>
         </Button>
       </Form.Item>
     </Form>
   );
 };
-
-RegisterForm.propTypes = {};
 
 export default RegisterForm;
