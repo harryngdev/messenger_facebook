@@ -41,6 +41,7 @@
 
     .btn-add-room,
     .btn-new-message,
+    .btn-video-chat,
     .btn-more {
       width: 36px;
       height: 36px;
@@ -48,8 +49,14 @@
       border: 0;
       transition: all 150ms linear;
 
+      @include flex(center, center);
+
       svg {
         fill: var(--color-primary);
+
+        path {
+          fill: var(--color-primary);
+        }
       }
 
       &:hover {
@@ -58,6 +65,7 @@
     }
 
     .btn-add-room,
+    .btn-video-chat,
     .btn-more {
       margin-left: 12px;
     }

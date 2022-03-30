@@ -1,4 +1,5 @@
 @import "~antd/dist/antd.css";
+@import "bootstrap/dist/css/bootstrap.min.css";
 
 @import "./variables";
 @import "./mixins";
@@ -8,3 +9,5 @@
 @import "./components/sidebar";
 @import "./components/chat-window";
 @import "./components/modals";
+@import "./components/modal-video-chat";
+@import "./components/popup-video-chat";

@@ -139,6 +139,7 @@ const AddMessageModals = () => {
         onOk={handleOk}
         onCancel={handleCancel}
         destroyOnClose={true}
+        centered
       >
         <Form form={form} layout="vertical">
           <DebounceSelect

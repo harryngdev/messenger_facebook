@@ -147,6 +147,7 @@ const AddRoomModals = () => {
         visible={isAddRoomVisible}
         onOk={handleOk}
         onCancel={handleCancel}
+        centered
       >
         <Form form={form} layout="vertical">
           <Form.Item label="Group Name" name="name">

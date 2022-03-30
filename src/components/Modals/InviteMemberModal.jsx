@@ -119,6 +119,7 @@ const InviteMemberModal = () => {
         onOk={handleOk}
         onCancel={handleCancel}
         destroyOnClose={true}
+        centered
       >
         <Form form={form} layout="vertical">
           {/* Tìm kiếm người dùng trên db */}

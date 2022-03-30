@@ -21,6 +21,15 @@ export default function AppProvider({ children }) {
   const [progressPercentRoom, setProgressPercentRoom] = useState(0);
   const [isProgressRoomVisible, setIsProgressRoomVisible] = useState(false);
 
+  /**
+   * Component VideoChat
+   */
+  const [isShowModalVideoChat, setIsShowModalVideoChat] = useState(false);
+  const [isPopupVideoChat, setIsShowPopupVideoChat] = useState(false);
+  const [isResizePopupVideoChat, setIsResizePopupVideoChat] = useState(false);
+  const [currentPage, setCurrentPage] = useState("home");
+  const [joinCode, setJoinCode] = useState("");
+
   const {
     user: { uid },
   } = React.useContext(AuthContext);
@@ -99,6 +108,16 @@ export default function AppProvider({ children }) {
         setProgressPercentRoom,
         isProgressRoomVisible,
         setIsProgressRoomVisible,
+        isShowModalVideoChat,
+        setIsShowModalVideoChat,
+        isPopupVideoChat,
+        setIsShowPopupVideoChat,
+        isResizePopupVideoChat,
+        setIsResizePopupVideoChat,
+        currentPage,
+        setCurrentPage,
+        joinCode,
+        setJoinCode,
       }}
     >
       {children}

@@ -31,5 +31,17 @@ const storage = firebase.storage();
 //   storage.useEmulator("localhost", "9199");
 // }
 
-export { db, auth, storage };
+// Initialize WebRTC
+const servers = {
+  iceServers: [
+    {
+      urls: ["stun:stun1.l.google.com:19302", "stun:stun2.l.google.com:19302"],
+    },
+  ],
+  iceCandidatePoolSize: 10,
+};
+
+const pc = new RTCPeerConnection(servers);
+
+export { db, auth, storage, servers, pc };
 export default firebase;

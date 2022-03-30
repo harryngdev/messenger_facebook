@@ -1,12 +1,15 @@
+import { Avatar, Button, Dropdown, Menu, Tooltip, Typography } from "antd";
+import { ReactComponent as GroupChatIcon } from "assets/icons/group-chat-icon.svg";
+import { ReactComponent as MoreIcon } from "assets/icons/more-icon.svg";
+import { ReactComponent as PrivateChatIcon } from "assets/icons/private-chat-icon.svg";
+import { ReactComponent as VideoChatIcon } from "assets/icons/video-chat-icon.svg";
 import React, { useEffect, useState } from "react";
-import { Avatar, Typography, Button, Dropdown, Menu } from "antd";
 import styled from "styled-components";
-import { auth } from "./../../firebase/config";
-import { AuthContext } from "../../context/AuthProvider";
 import { AppContext } from "../../context/AppProvider";
-
-import lightModeSvg from "./../../assets/images/btn/Light-Mode.svg";
+import { AuthContext } from "../../context/AuthProvider";
 import darkModeSvg from "./../../assets/images/btn/Dark-Mode.svg";
+import lightModeSvg from "./../../assets/images/btn/Light-Mode.svg";
+import { auth } from "./../../firebase/config";
 
 const UserInfoStyled = styled.div`
   display: flex;
@@ -24,8 +27,12 @@ const UserInfo = (props) => {
     user: { displayName, photoURL },
   } = React.useContext(AuthContext);
 
-  const { setIsNewMessageVisible, setIsAddRoomVisible, clearState } =
-    React.useContext(AppContext);
+  const {
+    setIsNewMessageVisible,
+    setIsAddRoomVisible,
+    setIsShowModalVideoChat,
+    clearState,
+  } = React.useContext(AppContext);
 
   const handleNewMessage = () => {
     setIsNewMessageVisible(true);
@@ -33,6 +40,10 @@ const UserInfo = (props) => {
 
   const handleAddRoom = () => {
     setIsAddRoomVisible(true);
+  };
+
+  const handleShowModalVideoChat = () => {
+    setIsShowModalVideoChat(true);
   };
 
   useEffect(() => {
@@ -108,41 +119,39 @@ const UserInfo = (props) => {
         </Typography.Text>
       </div>
 
-      <Button
-        shape="circle"
-        className="btn-new-message"
-        title="New message"
-        onClick={handleNewMessage}
-      >
-        <svg viewBox="0 0 36 36" height="28" width="28">
-          <path d="M17.305 16.57a1.998 1.998 0 00-.347.467l-1.546 2.87a.5.5 0 00.678.677l2.87-1.545c.171-.093.328-.21.466-.347l8.631-8.631a1.5 1.5 0 10-2.121-2.122l-8.631 8.632z"></path>
-          <path d="M18 10.5a1 1 0 001-1V9a1 1 0 00-1-1h-6a4 4 0 00-4 4v12a4 4 0 004 4h12a4 4 0 004-4v-6a1 1 0 00-1-1h-.5a1 1 0 00-1 1v6a1.5 1.5 0 01-1.5 1.5H12a1.5 1.5 0 01-1.5-1.5V12a1.5 1.5 0 011.5-1.5h6z"></path>
-        </svg>
-      </Button>
+      <Tooltip placement="topLeft" title="New message">
+        <Button
+          shape="circle"
+          className="btn-new-message"
+          onClick={handleNewMessage}
+        >
+          <PrivateChatIcon />
+        </Button>
+      </Tooltip>
 
-      <Button
-        shape="circle"
-        className="btn-add-room"
-        title="Create a new group"
-        onClick={handleAddRoom}
-      >
-        <svg viewBox="0 0 36 36" height="28" width="28">
-          <path
-            clipRule="evenodd"
-            d="M5 13.5a4 4 0 014-4h10a4 4 0 014 4v9a4 4 0 01-4 4H9a4 4 0 01-4-4v-9zm8 0a1 1 0 112 0v3.25c0 .138.112.25.25.25h3.25a1 1 0 110 2h-3.25a.25.25 0 00-.25.25v3.25a1 1 0 11-2 0v-3.25a.25.25 0 00-.25-.25H9.5a1 1 0 110-2h3.25a.25.25 0 00.25-.25V13.5z"
-            fillRule="evenodd"
-          ></path>
-          <path d="M29.552 23.393l-3.723-1.861A1.5 1.5 0 0125 20.19v-4.38a1.5 1.5 0 01.829-1.342l3.723-1.861A1 1 0 0131 13.5v9a1 1 0 01-1.448.894z"></path>
-        </svg>
-      </Button>
+      <Tooltip placement="topLeft" title="Create a new group">
+        <Button shape="circle" className="btn-add-room" onClick={handleAddRoom}>
+          <GroupChatIcon />
+        </Button>
+      </Tooltip>
 
-      <Button shape="circle" className="btn-more" title="Options">
-        <Dropdown overlay={menu} trigger={["click"]}>
-          <svg viewBox="0 0 36 36" height="28" width="28">
-            <path d="M12.5 18A2.25 2.25 0 118 18a2.25 2.25 0 014.5 0zm7.75 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm5.5 2.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z"></path>
-          </svg>
-        </Dropdown>
-      </Button>
+      <Tooltip placement="topLeft" title="Start a video call">
+        <Button
+          shape="circle"
+          className="btn-video-chat"
+          onClick={handleShowModalVideoChat}
+        >
+          <VideoChatIcon />
+        </Button>
+      </Tooltip>
+
+      <Tooltip placement="right" title="Options">
+        <Button shape="circle" className="btn-more">
+          <Dropdown overlay={menu} trigger={["click"]}>
+            <MoreIcon />
+          </Dropdown>
+        </Button>
+      </Tooltip>
     </UserInfoStyled>
   );
 };
